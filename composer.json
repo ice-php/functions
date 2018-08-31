@@ -1,0 +1,35 @@
+{
+  "name": "ice-php/basement",
+  "description": "icePHP框架的底层函数库",
+  "keywords": [
+    "icePHP",
+    "functions",
+    "global"
+  ],
+  "homepage": "https://github.com/ice-php/basement",
+  "type": "composer",
+  "license": "MIT",
+  "support": {
+    "source": "https://github.com/ice-php/basement"
+  },
+  "authors": [
+    {
+      "name": "blueice",
+      "email": "liyong@nenu.edu.cn"
+    }
+  ],
+  "require": {
+    "php": ">=7.1.0"
+  },
+  "autoload": {
+    "files": [
+      "src/basement.php"
+    ],
+    "psr-4": {
+      "icePHP\\": "src/"
+    }
+  },
+  "config": {
+    "process-timeout": 1800
+  }
+}
