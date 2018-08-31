@@ -33,3 +33,6 @@ dump($vars, $label = '', bool $return = false): string
 
 ## 不区分大小写的查找文件并包含(路径区分大小写,文件名不区分)
 requireFile(string $filename)
+
+## 判断当前请求是否是Ajax请求, 也可用来强制指定为Ajax
+isAjax(bool $forceAjax = false): bool
