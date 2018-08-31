@@ -12,6 +12,7 @@ namespace icePHP;
 
 /**
  * 判断当前是否处于命令行模式
+ * @return bool
  */
 function isCliMode(): bool
 {
