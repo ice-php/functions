@@ -1,16 +1,16 @@
 {
-  "name": "ice-php/basement",
+  "name": "ice-php/functions",
   "description": "icePHP框架的底层函数库",
   "keywords": [
     "icePHP",
     "functions",
     "global"
   ],
-  "homepage": "https://github.com/ice-php/basement",
+  "homepage": "https://github.com/ice-php/functions",
   "type": "composer",
   "license": "MIT",
   "support": {
-    "source": "https://github.com/ice-php/basement"
+    "source": "https://github.com/ice-php/functions"
   },
   "authors": [
     {
@@ -23,7 +23,7 @@
   },
   "autoload": {
     "files": [
-      "src/basement.php"
+      "src/functions.php"
     ],
     "psr-4": {
       "icePHP\\": "src/"
