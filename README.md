@@ -10,9 +10,6 @@ isWindows(): bool
 ## 包含文件,将系统中所有文件引入集中到这里
 requireOnce(string $path)
 
-## 如果未包含MB扩展,则自行定义 mb_strlen方法
-mb_strlen(string $string = null): int
-
 ## 常用的XML中的CDATA段
 cdata(string $key, string $val): string
 
@@ -36,6 +33,3 @@ dump($vars, $label = '', bool $return = false): string
 
 ## 不区分大小写的查找文件并包含(路径区分大小写,文件名不区分)
 requireFile(string $filename)
-
-
-
