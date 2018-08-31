@@ -276,3 +276,26 @@ function requireFile(string $filename)
     return false;
 }
 
+/**
+ * 判断当前请求是否是Ajax请求
+ * @param $forceAjax bool 强制设置为Ajax状态
+ * @return bool 当前是否是Ajax状态
+ */
+function isAjax(bool $forceAjax = false): bool
+{
+    //记录是否强制指定了Ajax模式
+    static $force;
+
+    //如果要求强制,则记录下来
+    if ($forceAjax) {
+        $force = true;
+    }
+
+    //如果已经强制了,返回是
+    if ($force) {
+        return true;
+    }
+
+    //否则 判断是否是Ajax
+    return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
+}
