@@ -299,3 +299,26 @@ function isAjax(bool $forceAjax = false): bool
     //否则 判断是否是Ajax
     return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
 }
+
+/**
+ * 美化存储容量数字的格式,K,M,G,T
+ *
+ * @param int $bytes 要转换的数值
+ * @param int $precision 精度
+ * @return string 转换成KMGT之后的字符串
+ */
+function kmgt($bytes, $precision = 1):string
+{
+    $units = ['B', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+    $factor = 1;
+
+    foreach ($units as $unit) {
+        if ($bytes < $factor * 1024) {
+            return number_format($bytes / $factor, $factor > 1 ? $precision : 0) . ' ' . $unit;
+        }
+        $factor *= 1024;
+    }
+
+    $factor /= 1024;
+    return number_format($bytes / $factor, $precision) . ' Y';
+}

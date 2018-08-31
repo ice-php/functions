@@ -36,3 +36,6 @@ requireFile(string $filename)
 
 ## 判断当前请求是否是Ajax请求, 也可用来强制指定为Ajax
 isAjax(bool $forceAjax = false): bool
+
+## 美化存储容量数字的格式,K,M,G,T
+kmgt($bytes, $precision = 1):string
