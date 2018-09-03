@@ -322,3 +322,14 @@ function kmgt($bytes, $precision = 1):string
     $factor /= 1024;
     return number_format($bytes / $factor, $precision) . ' Y';
 }
+
+/**
+ * 常用的JSON编码,中文不转码
+ *
+ * @param mixed $something
+ * @return string
+ */
+function json($something): string
+{
+    return json_encode($something, JSON_UNESCAPED_UNICODE);
+}
