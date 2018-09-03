@@ -1,3 +1,5 @@
+能看懂中文文档的,来个赞~~
+
 # functions
 这是ice-php框架的底层函数库, 用来定义一些常用的全局函数.
 
@@ -39,3 +41,6 @@ isAjax(bool $forceAjax = false): bool
 
 ## 美化存储容量数字的格式,K,M,G,T
 kmgt($bytes, $precision = 1):string
+
+## 常用的JSON编码,中文不转码
+json($something): string
