@@ -44,3 +44,6 @@ kmgt($bytes, $precision = 1):string
 
 ## 常用的JSON编码,中文不转码
 json($something): string
+
+## 时间记录及计算耗时
+timeLog($begin = null)

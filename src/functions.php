@@ -333,3 +333,20 @@ function json($something): string
 {
     return json_encode($something, JSON_UNESCAPED_UNICODE);
 }
+
+/**
+ * 时间记录及计算耗时
+ *
+ * @param $begin int 开始时间
+ * @return int 开始时间(如果未指明开始时间)/时间间隔(如果指明时间间隔)
+ */
+function timeLog($begin = null)
+{
+    // 不带参数则返回当前时间
+    if (!$begin) {
+        return microtime(true);
+    }
+
+    // 带参数(开始时间),则返回当前时间与开始时间的差
+    return round(microtime(true) - $begin, 6);
+}
