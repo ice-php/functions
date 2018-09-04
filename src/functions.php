@@ -307,7 +307,7 @@ function isAjax(bool $forceAjax = false): bool
  * @param int $precision 精度
  * @return string 转换成KMGT之后的字符串
  */
-function kmgt($bytes, $precision = 1):string
+function kmgt($bytes, $precision = 1): string
 {
     $units = ['B', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
     $factor = 1;
