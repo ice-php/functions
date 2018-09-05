@@ -335,6 +335,32 @@ function json($something): string
 }
 
 /**
+ * 构造并打印JsonP结果
+ * @param $data mixed
+ */
+function jsonP($data): void
+{
+    header("Content-Type: text/html; charset=utf-8");
+    $data = json($data);
+
+    // 如果是JsonP
+    if (isset($_REQUEST['callback'])) {
+        //检查变量名是否合法
+        if (!preg_match('/\w+/i', $_REQUEST['callback'])) {
+            echo 'inject';
+            exit;
+        }
+        $callback = $_REQUEST['callback'];
+        echo $callback . '(' . $data . ')';
+        exit();
+    }
+
+    // 普通Ajax
+    echo $data;
+    exit();
+}
+
+/**
  * 时间记录及计算耗时
  *
  * @param $begin int 开始时间
