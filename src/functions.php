@@ -403,3 +403,13 @@ function formatter(string $name, bool $firstUpper = true): string
     // 返回名字
     return $name;
 }
+
+/**
+ * 判断是否包含中文
+ * @param $str string 要判断的字符串
+ * @return bool
+ */
+function hasCN(string $str) :bool
+{
+    return preg_match('/[\x{4e00}-\x{9fa5}]/ui', $str)!==false;
+}
