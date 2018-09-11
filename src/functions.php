@@ -376,3 +376,30 @@ function timeLog($begin = null)
     // 带参数(开始时间),则返回当前时间与开始时间的差
     return round(microtime(true) - $begin, 6);
 }
+
+/**
+ * 将下划线分隔的名字,转换为驼峰模式
+ *
+ * @param string $name 下划线分隔的名字
+ * @param bool $firstUpper 转换后的首字母是否大写
+ * @return string
+ */
+function formatter(string $name, bool $firstUpper = true): string
+{
+    // 将表名中的下划线转换为大写字母
+    $words = explode('_', $name);
+    foreach ($words as $k => $w) {
+        $words [$k] = ucfirst($w);
+    }
+
+    // 合并
+    $name = implode('', $words);
+
+    // 如果明确要求首字母小写
+    if (!$firstUpper) {
+        $name = lcfirst($name);
+    }
+
+    // 返回名字
+    return $name;
+}
