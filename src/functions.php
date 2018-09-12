@@ -232,7 +232,7 @@ function requireFile(string $filename)
 
     //目录不存在
     if (!is_dir($dirName)) {
-        throw new RequireFileException('Directory not found:'.$dirName,RequireFileException::DIR_NOT_FOUND);
+        throw new RequireFileException('目录不存在:'.$dirName,RequireFileException::DIR_NOT_FOUND);
     }
 
     //此目录下的所有 文件 及文件 夹
@@ -252,7 +252,7 @@ function requireFile(string $filename)
     }
 
     //未找到
-    throw new RequireFileException('File not found:'.$filename,RequireFileException::FILE_NOT_FOUND);
+    throw new RequireFileException('文件不存在:'.$filename,RequireFileException::FILE_NOT_FOUND);
 }
 
 /**
@@ -327,7 +327,7 @@ function jsonP($data): void
     if (isset($_REQUEST['callback'])) {
         //检查变量名是否合法
         if (!preg_match('/\w+/i', $_REQUEST['callback'])) {
-            throw new JsonPException('Request is not jsonp.');
+            throw new JsonPException('当前请求不是JSONP.');
         }
         $callback = $_REQUEST['callback'];
         echo $callback . '(' . $data . ')';
