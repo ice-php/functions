@@ -48,9 +48,9 @@ function requireOnce(string $path)
 function cdata(string $key, string $val): string
 {
     if ($key) {
-        return '<' . $key . '><![CDATA[' . $val . ']]></' . $key . '>';
+        return "<{$key}><![CDATA[{$val}]]></{$key}>";
     }
-    return '<![CDATA[' . $val . ']]>';
+    return "<![CDATA[{$val}]]>";
 }
 
 /**
@@ -155,69 +155,65 @@ function left(string $str, int $len = 10): string
     return substr($str, 0, intval($len));
 }
 
-//此方法可能已经在别的框架中定义
-if (!function_exists('dump')) {
+/**
+ * 以可读格式显示变量内容
+ *
+ * @param mixed $vars 变量/数组/...
+ * @param string $label 变量名称(可省略)
+ * @param boolean $return 返回而不是显示(默认是显示)
+ * @return string
+ */
+function dump($vars, $label = '', bool $return = false): string
+{
+    // 是否输出了UTF8头
+    static $outHeader = 0;
 
-    /**
-     * 以可读格式显示变量内容
-     *
-     * @param mixed $vars 变量/数组/...
-     * @param string $label 变量名称(可省略)
-     * @param boolean $return 返回而不是显示(默认是显示)
-     * @return string
-     */
-    function dump($vars, $label = '', bool $return = false): string
-    {
-        // 是否输出了UTF8头
-        static $outHeader = 0;
-
-        // 第一次要输出UTF8头,以后就不输出了
-        if (!$outHeader and !$return and !isCliMode()) {
-            echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">' .
-                '<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
-            $outHeader = 1;
-        }
-
-        $debug = debug_backtrace();
-        $from = $debug[0];
-        $fromMsg = 'LINE:' . $from['line'] . ' FILE:' . $from['file'];
-
-        // Bool变量,显示为True/False
-        if (is_bool($vars)) {
-            if ($vars) {
-                $vars = 'True';
-            } else {
-                $vars = 'False';
-            }
-        }
-
-        if (isCliMode()) {
-            $content = $fromMsg . "\r\n" . $label . "\r\n" . print_r($vars, true);
-            if (substr(PHP_OS, 0, 3) == 'WIN') {
-                $content = iconv('UTF-8', 'GB2312', $content);
-            }
-        } else {
-            // 加上HTML外围标签
-            if (ini_get('html_errors') and !$return) {
-                $content = "<pre><br/>{$fromMsg}<br/>";
-                if ($label != '') {
-                    $content .= "<br/><strong>{$label} :</strong><br/>";
-                }
-                $content .= htmlspecialchars(print_r($vars, true));
-                $content .= "<br/></pre><br/>";
-            } else {
-                $content = "<br/>{$fromMsg}<br/><strong>{$label}</strong> :<br/>" . print_r($vars, true);
-            }
-        }
-
-        // 不需要返回情况下,打印
-        if (!$return) {
-            echo $content;
-        }
-
-        // 无论如何也要返回
-        return $content;
+    // 第一次要输出UTF8头,以后就不输出了
+    if (!$outHeader and !$return and !isCliMode()) {
+        echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">' .
+            '<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
+        $outHeader = 1;
     }
+
+    $debug = debug_backtrace();
+    $from = $debug[0];
+    $fromMsg = 'LINE:' . $from['line'] . ' FILE:' . $from['file'];
+
+    // Bool变量,显示为True/False
+    if (is_bool($vars)) {
+        if ($vars) {
+            $vars = 'True';
+        } else {
+            $vars = 'False';
+        }
+    }
+
+    if (isCliMode()) {
+        $content = $fromMsg . "\r\n" . $label . "\r\n" . print_r($vars, true);
+        if (substr(PHP_OS, 0, 3) == 'WIN') {
+            $content = iconv('UTF-8', 'GB2312', $content);
+        }
+    } else {
+        // 加上HTML外围标签
+        if (ini_get('html_errors') and !$return) {
+            $content = "<pre><br/>{$fromMsg}<br/>";
+            if ($label != '') {
+                $content .= "<br/><strong>{$label} :</strong><br/>";
+            }
+            $content .= htmlspecialchars(print_r($vars, true));
+            $content .= "<br/></pre><br/>";
+        } else {
+            $content = "<br/>{$fromMsg}<br/><strong>{$label}</strong> :<br/>" . print_r($vars, true);
+        }
+    }
+
+    // 不需要返回情况下,打印
+    if (!$return) {
+        echo $content;
+    }
+
+    // 无论如何也要返回
+    return $content;
 }
 
 /**
