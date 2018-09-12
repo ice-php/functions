@@ -38,22 +38,6 @@ function requireOnce(string $path)
     return require_once($path);
 }
 
-//如果未包含MB扩展,则自行定义 mb_strlen方法
-if (!function_exists('mb_strlen')) {
-    /**
-     * 多字节文字的长度
-     * @param string $string
-     * @return int
-     */
-    function mb_strlen(string $string = null): int
-    {
-        // 将字符串分解为单元
-        preg_match_all("/./us", $string, $match);
-        // 返回单元个数
-        return count($match[0]);
-    }
-}
-
 /**
  * 常用的XML中的CDATA段
  *
@@ -107,8 +91,6 @@ function gmdatetime(int $time = null): string
 
 /**
  * 以Y-m-d格式显示当前日期
- * 常用方法
- *
  * @return string 年-月-日
  */
 function today(): string
@@ -409,7 +391,7 @@ function formatter(string $name, bool $firstUpper = true): string
  * @param $str string 要判断的字符串
  * @return bool
  */
-function hasCN(string $str) :bool
+function hasCN(string $str): bool
 {
-    return preg_match('/[\x{4e00}-\x{9fa5}]/ui', $str)!==false;
+    return preg_match('/[\x{4e00}-\x{9fa5}]/ui', $str) !== false;
 }
