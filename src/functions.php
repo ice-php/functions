@@ -220,6 +220,7 @@ function dump($vars, $label = '', bool $return = false): string
  * 不区分大小写的查找文件并包含(路径区分大小写,文件名不区分)
  * @param $filename string 文件全路径
  * @return bool|mixed
+ * @throws RequireFileException
  */
 function requireFile(string $filename)
 {
@@ -231,7 +232,7 @@ function requireFile(string $filename)
 
     //目录不存在
     if (!is_dir($dirName)) {
-        return false;
+        throw new RequireFileException('Directory not found:'.$dirName,RequireFileException::DIR_NOT_FOUND);
     }
 
     //此目录下的所有 文件 及文件 夹
@@ -251,7 +252,7 @@ function requireFile(string $filename)
     }
 
     //未找到
-    return false;
+    throw new RequireFileException('File not found:'.$filename,RequireFileException::FILE_NOT_FOUND);
 }
 
 /**
@@ -315,6 +316,7 @@ function json($something): string
 /**
  * 构造并打印JsonP结果
  * @param $data mixed
+ * @throws JsonPException
  */
 function jsonP($data): void
 {
@@ -325,8 +327,7 @@ function jsonP($data): void
     if (isset($_REQUEST['callback'])) {
         //检查变量名是否合法
         if (!preg_match('/\w+/i', $_REQUEST['callback'])) {
-            echo 'inject';
-            exit;
+            throw new JsonPException('Request is not jsonp.');
         }
         $callback = $_REQUEST['callback'];
         echo $callback . '(' . $data . ')';
