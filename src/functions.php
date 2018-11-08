@@ -392,3 +392,23 @@ function hasCN(string $str): bool
 {
     return preg_match('/[\x{4e00}-\x{9fa5}]/ui', $str) !== false;
 }
+
+/**
+ * 计算下一天(或几天或前几天)的日期
+ *
+ * @param string $day
+ * @param int $n
+ * @return string
+ */
+function nextDay(string $day = '', int $n = 1):string
+{
+    // 日期的默认值为今天
+    if (!$day) {
+        $day = date('Y-m-d');
+    }
+
+    if ($n > 0)
+        return date('Y-m-d', strtotime('+' . $n . ' day', strtotime($day)));
+
+    return date('Y-m-d', strtotime($n . ' day', strtotime($day)));
+}
