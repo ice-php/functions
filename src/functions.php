@@ -232,7 +232,7 @@ function requireFile(string $filename)
 
     //目录不存在
     if (!is_dir($dirName)) {
-        throw new RequireFileException('目录不存在:'.$dirName,RequireFileException::DIR_NOT_FOUND);
+        throw new RequireFileException('目录不存在:' . $dirName, RequireFileException::DIR_NOT_FOUND);
     }
 
     //此目录下的所有 文件 及文件 夹
@@ -252,7 +252,7 @@ function requireFile(string $filename)
     }
 
     //未找到
-    throw new RequireFileException('文件不存在:'.$filename,RequireFileException::FILE_NOT_FOUND);
+    throw new RequireFileException('文件不存在:' . $filename, RequireFileException::FILE_NOT_FOUND);
 }
 
 /**
@@ -390,7 +390,7 @@ function formatter(string $name, bool $firstUpper = true): string
  */
 function hasCN(string $str): bool
 {
-    return preg_match('/[\x{4e00}-\x{9fa5}]/ui', $str) !== false;
+    return preg_match('/[\x{4e00}-\x{9fa5}]/ui', $str) ? true : false;
 }
 
 /**
@@ -400,7 +400,7 @@ function hasCN(string $str): bool
  * @param int $n
  * @return string
  */
-function nextDay(string $day = '', int $n = 1):string
+function nextDay(string $day = '', int $n = 1): string
 {
     // 日期的默认值为今天
     if (!$day) {
