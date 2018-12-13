@@ -25,7 +25,7 @@ function isCliMode(): bool
  */
 function isWindows(): bool
 {
-    return strpos(getenv('OS') ?: '', 'Windows') !== false;
+    return strtolower(PHP_OS) != 'linux';
 }
 
 /**
